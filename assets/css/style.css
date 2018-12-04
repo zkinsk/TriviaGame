@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'cheapmotel';
+    src: url('../fonts/cheap-motel-webfont.woff2') format('woff2'),
+         url('../fonts/cheap-motel-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+.bigL{
+    background-image: url("../images/bowling-alley-detail-1.jpg");
+    /* background-repeat: no-repeat; */
+    background-position: center center;
+    background-size: contain;
+    text-align: center;
+}
+h1 {
+    font-family: 'cheapmotel';
+    color: #ffee00;
+    text-shadow: 0 0 10px  black;
+}
+
+h6, h5, h4, h2 {
+    text-align: center;
+    color: red;
+    text-shadow: 0 0 1px #929292;
+    font-family: 'Audiowide', cursive;
+
+}
+.question h2{
+    color: #011fff;
+}
+
+.bgIm {    
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+    background-image: url("../images/atomicStars-Background.jpg");
+    background-position: center center;
+    background-size: 300px;
+    background-repeat: repeat;
+    z-index: -1;
+
+    /* background-image: url("../images/bigLebow-alleys.jpg"); */
+
+    
+}
+
+.bgIm img {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: -20%; 
+    margin: auto; 
+    max-width: 100%;
+    /* min-height: 50%; */
+}
+
+.sinceTime, .downTime {
+    background-color: #e4f0b5;
+    border: 1px transparent solid;
+    border-radius: 3px;
+}
+.answ {
+    background-color: #e4f0b5;
+    border: 1px transparent solid;
+    border-radius: 3px;
+}
+.question {
+    background-color: #e4f0b5;
+    border: 1px transparent solid;
+    border-radius: 3px;
+}
