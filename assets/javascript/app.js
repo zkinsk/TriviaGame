@@ -20,6 +20,7 @@ var triviaObj = {
     ],
 
     startGame: function () {
+        imObj.gameImg(2);
         this.qNum = currentQ();
         this.clickButtons();
         this.updateQuestions(this.qNum)
@@ -30,14 +31,20 @@ var triviaObj = {
 
     reStart: function(){
         gameOver = false;
+        qCorrect =  0
         timer.startTimer();
         triviaObj.nextQ();
+        gameSounds.soundAff(2);
         $(".answer, .question").fadeIn(1000);
     },
 
     clickButtons: function () {
+        $(".answ").mouseenter(function(){
+            gameSounds.soundAff(3);
+        });
         $(".answ").click(function () {
-            if (!gameOver) {
+            if (!gameOver && !chosen) {
+                chosen = true;
                 var x = parseInt($(this).attr("value"));
                 if (x === triviaObj.questionArr[triviaObj.qNum].correct) {
                     triviaObj.correctAns();
@@ -52,13 +59,15 @@ var triviaObj = {
     correctAns: function () {
         qCorrect ++;
         timer.stopCD();
-        $(".result h4").text("Far out man.");
+        gameSounds.soundAff(1);
+        $(".result h3").text("Far out man.");
+        imObj.gameImg(0);
         console.log ("Correct: " + qCorrect);
         console.log ("Wrong: " + qWrong);
         console.log ("Late: " + qLate);
         setTimeout(function() {
             triviaObj.nextQ();;
-          }, 1000);
+          }, 1700);
         
         // triviaObj.nextQ();
     },
@@ -66,38 +75,42 @@ var triviaObj = {
     wrongAns: function () {
         qWrong ++;
         timer.stopCD();
-        $(".result h4").text("No way man.");
+        gameSounds.soundAff(0);
+        imObj.gameImg(1);
+        $(".result h3").text("No way man.");
         console.log ("Correct: " + qCorrect);
         console.log ("Wrong: " + qWrong);
         console.log ("Late: " + qLate);
         setTimeout(function() {
             triviaObj.nextQ();;
-          }, 1000);
+          }, 1700);
         // $(".result h4").text("No way man.");
         // triviaObj.nextQ();
     },
 
     outOfTime: function () {
+        chosen = true;
         qLate ++;
         timer.stopCD();
-        $(".result h4").text("Too late man.");
+        gameSounds.soundAff(0);
+        $(".result h3").text("Too late man.");
         console.log ("Correct: " + qCorrect);
         console.log ("Wrong: " + qWrong);
         console.log ("Late: " + qLate);
         setTimeout(function() {
             triviaObj.nextQ();;
-          }, 1000);
+          }, 1700);
     },
 
     endOfGame: function () {
         gameOver = true;
         clearInterval(qCountDown);
         clearInterval(timeSince);
-        $(".result h4").text("You got " + qCorrect + " out of " + qTotal + " correct!");
+        $(".result h3").text("You got " + qCorrect + " out of " + qTotal + " correct!");
         $(".answer, .question").fadeOut(1000);
         setTimeout(function() {
             triviaObj.reStart();
-          }, 5000);
+          }, 8000);
 
     },
 
@@ -112,7 +125,8 @@ var triviaObj = {
 
     updateQuestions: function (num) {
         if (!gameOver) {
-            $(".result h4").text("Dude Trivia!");
+            chosen = false;
+            $(".result h3").text("Dude Trivia!");
             $(".answ ").hide(200);
             $(".answ h4").empty();
             $(".question h2").text(this.questionArr[num].question);
@@ -129,6 +143,22 @@ var dudeObj = {
 
 
 }
+
+// dude images
+var imObj = {
+    imgType: ["winImArr", "loseImArr", "startImArr",],
+    winImArr: ["new-rug.jpg","socialism.gif","thebiglebowski.jpg"],
+    loseImArr: ["lebowski-nope-1.gif","trio.jpg"],
+    startImArr: ["big-lebowski-the-1998-007-jeff-bridges-john-goodman-steve-buscemi-bfi-00m-jjm.jpg","lebowski_done_no_border_SMALL_size_1024x1024.jpg","jesus.gif"],
+    gameImg: function(iT){
+        let x = (this.imgType[iT]);
+        console.log (x)
+        let iR = (Math.floor(Math.random() * this[x].length));
+        $(".images").empty();
+        $(".images").append("<img src='assets/images/" + this[x][iR] + "'>");
+        $(".images").fadeIn(500).delay(1500).fadeOut(500);
+    }
+};
 // timer object
 var timer = {
 
@@ -181,10 +211,11 @@ var timer = {
 
 // sound affect object
 var gameSounds = {
-    effectType: ["loseTracks", "winTracks", "resetTracks"],
-    loseTracks: ["",],
-    winTracks: ["",],
-    resetTracks: ["",],
+    effectType: ["loseTracks", "winTracks", "resetTracks", "hoverTracks"],
+    loseTracks: ["miss-01.m4a","miss-02.m4a","miss-03.m4a","miss-04.m4a",],
+    winTracks: ["bowling2.mp3","strike_2.mp3", "strike-01.m4a", "strike-02.m4a", "strike-03.m4a", "strike-04.m4a", "strike-05.m4a", "strike-06.m4a"],
+    resetTracks: ["Strike.mp3", "I Like Your Style.mp3", "Dios Mo Man.mp3"],
+    hoverTracks: ["toss-01.m4a", "toss-02.m4a", "toss-03.m4a", "toss-04.m4a", "toss-05.m4a","bowling1.mp3"],
     soundAff: function (eT) {
         let x = (this.effectType[eT]);
         let gA = (Math.floor(Math.random() * this[x].length));
@@ -205,6 +236,7 @@ var qCorrect =  0;
 var qWrong = 0;
 var qLate = 0;
 var qTotal = (triviaObj.questionArr).length;
+var chosen = false;
 
 var currentQ = function () {
     var picked = false;

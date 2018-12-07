@@ -21,7 +21,7 @@ h1 {
     text-shadow: 0 0 10px  black;
 }
 
-h6, h5, h4, h2 {
+h6, h5, h4, h3, h2 {
     text-align: center;
     color: red;
     text-shadow: 0 0 1px #929292;
@@ -52,24 +52,48 @@ h6, h5, h4, h2 {
 .bgIm img {
     position: absolute; 
     top: 0; 
-    left: 0; 
+    left: 0;
     right: 0; 
     bottom: -20%; 
     margin: auto; 
     max-width: 100%;
     /* min-height: 50%; */
 }
-
+.images {
+    position: relative;
+    height: 0px;
+    overflow: visible;
+    text-align: center;
+}
+.images img{
+    display: block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: -120px;
+    /* width: 500px; */
+    height: 300px;
+}
 .sinceTime, .downTime {
     background-color: #e4f0b5;
     border: 1px transparent solid;
     border-radius: 3px;
 }
+.result h3{
+    color: rgb(255, 196, 0);
+    font-weight: bold;
+    text-shadow: 0 0 10px black;
+}
 .answ {
     background-color: #e4f0b5;
     border: 1px transparent solid;
     border-radius: 3px;
+    transition: all 0.5s;
 }
+.answ:hover{
+    opacity: 0.75;
+    background-color: hsl(219, 98%, 49%);;
+}
+
 .question {
     background-color: #e4f0b5;
     border: 1px transparent solid;
