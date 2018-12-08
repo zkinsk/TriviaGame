@@ -5,18 +5,18 @@ var triviaObj = {
     
 
     questionArr: [
-        { question: "Did this rug really tie the room together?", choices: ["yes", "no", "which rug?",], correct: 0 },
-        { question: "What is good about National Socialism?", choices: ["they don't believe in anything", "atleast it's an ethos", "shut up Donny", "I'm the Dude, man"], correct: 1 },
-        { question: "Do we have anything to fear from Nihilists?", choices: ["yes", "no we don't", "those men are cowards", ], correct: 2 },
-        { question: "Is the Dude a lazy man?", choices: ["You have not frame of reference here", "shut up Donny", "obviously, you're not a golfer", "He most certainly is"], correct: 3 },
-        { question: "Will this agression stand?", choices: ["You're about to enter a world of hurt", "shut up Donny", "my wife is not the problem here!", "Stay away from my lady friend"], correct: 2 },
-        { question: "tomorrow is already the 10th", choices: ["Oh, OK.", "far out", "Oh, is it?"], correct: 1 },
-        { question: "It's like Lennin said", choices: ["Who is that?", "where do you want us to go?", "I drank what?", "I am the walrus"], correct: 3 },
-        { question: "Do you roll on shomer Shabbos", choices: ["I'm rolling rocks, here", "I don't roll on shomer Shabbos", "mark it zero", "You're out of your depth, Donny"], correct: 1 },
-        { question: "The story is ludicrous, you can imagine where it goes from here..", choices: ["He leaves?", "He fixes the cable?", "He visits Jackie Treehorn", "They become little Lebowski urban acheivers"], correct: 1 },
-        { question: "Where is the money Lebowski?", choices: ["it's a complicated story, man", "It's got to be down there somwhere, let me take another look", "certain things have come to light, I've got information.", "Larry has it",], correct: 1 },
-        { question: "Do you want a toe?", choices: ["I don't want a toe", "I can get you a toe by 3 o-clock this afternoon", "Are you crazy?", "Shut up Donny"], correct: 1 },
-        { question: "You got any promising leads? ", choices: ["We are doing all we can", "this isn't CSI", "Yeah, we got 4 more detectives working on the case.  They've got us working in shifts!", "Yes we do"], correct: 2 },
+        { question: "Did this rug really tie the room together?", choices: ["yes", "no", "which rug?",], correct: 0 , gif: "carpet.gif",},
+        { question: "What is good about National Socialism?", choices: ["they don't believe in anything", "atleast it's an ethos", "shut up Donny", "I'm the Dude, man"], correct: 1, gif: "socialism.gif",},
+        { question: "Do we have anything to fear from Nihilists?", choices: ["yes", "no we don't", "those men are cowards", ], correct: 2, gif: "nihilists.gif",},
+        { question: "Is the Dude a lazy man?", choices: ["You have not frame of reference here", "shut up Donny", "obviously, you're not a golfer", "He most certainly is"], correct: 3, gif: "dude-abides.gif",},
+        { question: "Will this agression stand?", choices: ["You're about to enter a world of hurt", "shut up Donny", "my wife is not the problem here!", "Stay away from my lady friend"], correct: 2, gif: "agression_wont-stand.gif",},
+        { question: "tomorrow is already the 10th", choices: ["Oh, OK.", "far out", "Oh, is it?"], correct: 1, gif: "tomorrows-the-tenth.gif" },
+        { question: "It's like Lennin said", choices: ["Who is that?", "where do you want us to go?", "I drank what?", "I am the walrus"], correct: 3, gif: "I am the walrus.gif",},
+        { question: "Do you roll on shomer Shabbos", choices: ["I'm rolling rocks, here", "I don't roll on shomer Shabbos", "mark it zero", "You're out of your depth, Donny"], correct: 1, gif: "shomer shabbos.gif", },
+        { question: "The story is ludicrous, you can imagine where it goes from here..", choices: ["He leaves?", "He fixes the cable?", "He visits Jackie Treehorn", "They become little Lebowski urban acheivers"], correct: 1, gif: "fixes cable.gif"},
+        { question: "Where is the money Lebowski?", choices: ["it's a complicated story, man", "It's got to be down there somwhere, let me take another look", "certain things have come to light, I've got information.", "Larry has it",], correct: 1, gif: "wheres the mone.gif"},
+        { question: "Do you want a toe?", choices: ["I don't want a toe", "I can get you a toe by 3 o-clock this afternoon", "Are you crazy?", "Shut up Donny"], correct: 1, gif: "want-toe.gif", },
+        { question: "You got any promising leads? ", choices: ["We are doing all we can", "this isn't CSI", "Yeah, we got 4 more detectives working on the case.  They've got us working in shifts!", "Yes we do"], correct: 2, gif: "Leads.gif"},
     ],
 
     startGame: function () {
@@ -25,7 +25,7 @@ var triviaObj = {
         this.clickButtons();
         this.updateQuestions(this.qNum)
         timer.startTimer();
-        timer.startCoundown();
+        // timer.startCoundown();
         qCorrect = 0;
     },
 
@@ -33,9 +33,9 @@ var triviaObj = {
         gameOver = false;
         qCorrect =  0
         timer.startTimer();
-        triviaObj.nextQ();
+        // triviaObj.nextQ();
+        this.updateQuestions(this.qNum);
         gameSounds.soundAff(2);
-        $(".answer, .question").fadeIn(1000);
     },
 
     clickButtons: function () {
@@ -61,15 +61,11 @@ var triviaObj = {
         timer.stopCD();
         gameSounds.soundAff(1);
         $(".result h3").text("Far out man.");
-        imObj.gameImg(0);
+        imObj.gameImg(-1);
         console.log ("Correct: " + qCorrect);
         console.log ("Wrong: " + qWrong);
         console.log ("Late: " + qLate);
-        setTimeout(function() {
-            triviaObj.nextQ();;
-          }, 1700);
-        
-        // triviaObj.nextQ();
+        triviaObj.nextQ();
     },
 
     wrongAns: function () {
@@ -81,25 +77,20 @@ var triviaObj = {
         console.log ("Correct: " + qCorrect);
         console.log ("Wrong: " + qWrong);
         console.log ("Late: " + qLate);
-        setTimeout(function() {
-            triviaObj.nextQ();;
-          }, 1700);
-        // $(".result h4").text("No way man.");
-        // triviaObj.nextQ();
+        triviaObj.nextQ();
     },
 
     outOfTime: function () {
         chosen = true;
         qLate ++;
         timer.stopCD();
+        imObj.gameImg(1);
         gameSounds.soundAff(0);
         $(".result h3").text("Too late man.");
         console.log ("Correct: " + qCorrect);
         console.log ("Wrong: " + qWrong);
         console.log ("Late: " + qLate);
-        setTimeout(function() {
-            triviaObj.nextQ();;
-          }, 1700);
+        triviaObj.nextQ();
     },
 
     endOfGame: function () {
@@ -107,7 +98,7 @@ var triviaObj = {
         clearInterval(qCountDown);
         clearInterval(timeSince);
         $(".result h3").text("You got " + qCorrect + " out of " + qTotal + " correct!");
-        $(".answer, .question").fadeOut(1000);
+        $(".answ h4, .question h2").empty();
         setTimeout(function() {
             triviaObj.reStart();
           }, 8000);
@@ -118,21 +109,21 @@ var triviaObj = {
         this.qNum = currentQ();
         if (!gameOver) {
             triviaObj.updateQuestions(this.qNum);
-            timer.resetDown();
         } else {
+            // alert("Game Over Next Q")
         }
     },
 
     updateQuestions: function (num) {
+        setTimeout(function() {
+            $(".result h3").text("Dude Trivia!");
+          }, 4000);
         if (!gameOver) {
             chosen = false;
-            $(".result h3").text("Dude Trivia!");
-            $(".answ ").hide(200);
-            $(".answ h4").empty();
+            $(".answ h4, question h2").empty();
             $(".question h2").text(this.questionArr[num].question);
             for (let i = 0; i < this.questionArr[num].choices.length; i++) {
                 $(".answ[value=" + i + "] h4").text(this.questionArr[num].choices[i]);
-                $(".answ[value=" + i + "]").fadeIn(500);
             }
         }
     },
@@ -148,17 +139,32 @@ var dudeObj = {
 var imObj = {
     imgType: ["winImArr", "loseImArr", "startImArr",],
     winImArr: ["new-rug.jpg","socialism.gif","thebiglebowski.jpg"],
-    loseImArr: ["lebowski-nope-1.gif","trio.jpg"],
-    startImArr: ["big-lebowski-the-1998-007-jeff-bridges-john-goodman-steve-buscemi-bfi-00m-jjm.jpg","lebowski_done_no_border_SMALL_size_1024x1024.jpg","jesus.gif"],
+    loseImArr: ["lebowski-nope-1.gif","trio.jpg", "dude-ashes.gif", "no-not-exactly.gif"],
+    startImArr: ["big-lebowski-the-1998-007-jeff-bridges-john-goodman-steve-buscemi-bfi-00m-jjm.jpg","lebowski_done_no_border_SMALL_size_1024x1024.jpg","jesus.gif", "bigL.gif"],
     gameImg: function(iT){
-        let x = (this.imgType[iT]);
-        console.log (x)
-        let iR = (Math.floor(Math.random() * this[x].length));
-        $(".images").empty();
-        $(".images").append("<img src='assets/images/" + this[x][iR] + "'>");
-        $(".images").fadeIn(500).delay(1500).fadeOut(500);
+        $(".answ, .question").hide();
+        if(!gameOver){
+            if (!(iT == -1)){
+                let x = (this.imgType[iT]);
+                console.log (x)
+                let iR = (Math.floor(Math.random() * this[x].length));
+                $(".images").empty();
+                $(".images").append("<img src='assets/images/" + this[x][iR] + "'>");
+                $(".images").fadeIn(500).delay(4500).fadeOut(500, function(){timer.startCoundown()});
+                $(".answ, .question").delay(5000).fadeIn(1500);
+            }else {
+                let x = (triviaObj.questionArr[triviaObj.qNum].gif);
+                $(".images").empty();
+                $(".images").append("<img src='assets/images/" + x + "'>");
+                $(".images").fadeIn(500).delay(4500).fadeOut(500, function(){timer.startCoundown()});
+                $(".answ, .question").delay(5000).fadeIn(1500);
+            }
+
+        }
+        else{alert("Game Over")}
     }
 };
+
 // timer object
 var timer = {
 
@@ -173,6 +179,8 @@ var timer = {
         timeSince = setInterval(timer.count, 1000);
     },
     startCoundown: function () {
+        clearInterval(qCountDown);
+        timer.countDownTime =10;
         $(".downTime h5").text(this.countDownTime);
         qCountDown = setInterval(timer.countDown, 1000);
     },
