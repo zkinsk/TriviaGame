@@ -21,7 +21,7 @@ h1 {
     text-shadow: 0 0 10px  black;
 }
 
-h6, h5, h4, h3, h2 {
+h6, h5, h4, h3, h2, .btn{
     text-align: center;
     color: red;
     text-shadow: 0 0 1px #929292;
@@ -82,6 +82,13 @@ h6, h5, h4, h3, h2 {
     color: rgb(255, 196, 0);
     font-weight: bold;
     text-shadow: 0 0 10px black;
+}
+#gameArea {
+    margin: 0 auto;
+    background-color: #e4f0b5;
+    width: 60%;
+    height: 80%;
+    /* transition: all 0.1s; */
 }
 .answ {
     background-color: #e4f0b5;
